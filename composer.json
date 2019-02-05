@@ -1,0 +1,26 @@
+{
+    "name": "jsql/laravel-plugin",
+    "description": "JSQL Plugin for Laravel framework to use JSQL Hashing Query Software",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+      "psr-4": {
+        "Jsql\\LaravelPlugin\\": "src/"
+      }
+    },
+    "authors": [
+        {
+            "name": "Rafał Olichwer",
+            "email": "rafal.olichwer@jsql.pl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+      "laravel": {
+        "providers": [
+          "Jsql\\LaravelPlugin\\JsqlServiceProvider"
+        ]
+      }
+    }
+}
