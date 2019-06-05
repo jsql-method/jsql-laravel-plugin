@@ -2,14 +2,32 @@
 stages:
   - push to GitHub
 
-
-
-
-deploy dev:
+push to GitHub:
   stage: push to GitHub
-  image: docker
+  image: 
+    name: alpine/git
+    entrypoint: ["/bin/sh", "-c"]
   script:
-    - alpine/git
+    - pwd > /location
+    - chmod 0400 id_rsa
+    - mv id_rsa /root/
+    - eval "$(ssh-agent)"
+    - mkdir /root/.ssh/
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - ssh-add /root/id_rsa
+
+    - mkdir /github 
+    - cd /github
+    - git config --global user.email "admin@jsql.it"
+    - git config --global user.name "cicd"
+    - git clone git@github.com:jsql-optimization/jsql-laravel.git
+    - cd jsql-laravel
+    - cp -rf `cat /location`/* .
+    - ls -lah
+    - echo `date` > checksum
+    - git add .
+    - git commit -m "$(date)"
+    - git push origin master
   environment:
     name: GitHub
     url: https://github.com/jsql-optimization/jsql-laravel
